@@ -30,7 +30,7 @@ class MockClient implements IClient {
     }
 
     //? For Sessions Hardcoded Data
-    else if (resourcePath == HomeProvider.kConstGetSessionsUrl) {
+    else if (resourcePath == HomeProvider.kConstGetFirstDaySessionsUrl) {
       if (Injector().currentDataMode == DataMode.DART) {
         rawString = jsonEncode(SessionsData(sessions: sessions));
       } else {

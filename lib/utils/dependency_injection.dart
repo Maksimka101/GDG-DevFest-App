@@ -1,3 +1,4 @@
+import 'package:flutter_devfest/home/home_provider.dart';
 import 'package:flutter_devfest/network/index.dart';
 
 enum Flavor { MOCK, REST, FIREBASE }
@@ -20,6 +21,15 @@ class Injector {
   }
 
   Injector._internal();
+
+  IHomeProvider get currentHomeProvider {
+    switch (_flavor) {
+      case Flavor.FIREBASE:
+        return FHomeProvider();
+      default:
+        return HomeProvider();
+    }
+  }
 
   IClient get currentClient {
     switch (_flavor) {
