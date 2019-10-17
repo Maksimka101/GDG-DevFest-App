@@ -61,6 +61,29 @@ class Speaker {
     sessionId = json['session_id'];
   }
 
+  Speaker.fromFirestoreJson(Map<String, dynamic> json, String id) {
+    speakerName = json['name'];
+    speakerDesc = json['title'];
+    speakerSession = json['photoUrl'];
+    speakerInfo = json['shortBio'];
+    speakerId = id;
+    for (Map<String, String> social in json['socials'])
+      switch (social['name']) {
+        case 'Facebook':
+          fbUrl = social['link'];
+          break;
+        case 'LinkedIn':
+          linkedinUrl = social['link'];
+          break;
+        case 'Twitter':
+          twitterUrl = social['link'];
+          break;
+        case 'GitHub':
+          githubUrl = social['link'];
+          break;
+      }
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['speaker_name'] = this.speakerName;

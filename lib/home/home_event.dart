@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_devfest/home/home_provider.dart';
 import 'package:flutter_devfest/home/index.dart';
+import 'package:flutter_devfest/utils/dependency_injection.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -9,7 +10,7 @@ abstract class HomeEvent {
 }
 
 class LoadHomeEvent extends HomeEvent {
-  final IHomeProvider _homeProvider = HomeProvider();
+  final IHomeProvider _homeProvider = Injector().currentHomeProvider;
   @override
   String toString() => 'LoadHomeEvent';
 

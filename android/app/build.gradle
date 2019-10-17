@@ -58,8 +58,8 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
    buildTypes {
        release {
           signingConfig signingConfigs.release
-
-            minifyEnabled true
+           multiDexEnabled true
+           minifyEnabled true
             useProguard true
            multiDexEnabled true
 
@@ -76,6 +76,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:multidex:1.0.3'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

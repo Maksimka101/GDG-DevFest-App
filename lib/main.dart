@@ -30,7 +30,7 @@ Future<void> main() async {
 
   // * Set flavor for your app. For eg - MOCK for offline, REST for some random server calls to your backend, FIREBASE for firebase calls
   //* Set DataMode.DART to use Dart hardcoded data and DataMode.JSON to use json file for hardcoded data.
-  Injector.configure(Flavor.MOCK, DataMode.JSON);
+  Injector.configure(Flavor.FIREBASE, DataMode.DART);
 
   runApp(ConfigPage());
 }
