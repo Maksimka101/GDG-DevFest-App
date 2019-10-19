@@ -29,7 +29,7 @@ class Team {
   String speciality;
   String fbUrl;
   String twitterUrl;
-  String linkedinUrl;
+  String vkUrl;
   String githubUrl;
   String contribution;
 
@@ -41,7 +41,7 @@ class Team {
       this.speciality,
       this.fbUrl,
       this.twitterUrl,
-      this.linkedinUrl,
+      this.vkUrl,
       this.githubUrl,
       this.contribution});
 
@@ -53,9 +53,30 @@ class Team {
     speciality = json['speciality'];
     fbUrl = json['fb_url'];
     twitterUrl = json['twitter_url'];
-    linkedinUrl = json['linkedin_url'];
+    vkUrl = json['linkedin_url'];
     githubUrl = json['github_url'];
     contribution = json['contribution'];
+  }
+
+  Team.fromFirestoreJson(Map<String, dynamic> json) {
+    name = json['name'];
+    job = json['title'];
+    image = json['photoUrl'];
+    for (Map<dynamic, dynamic> social in json['socials'])
+      switch (social['name']) {
+        case 'Facebook':
+          fbUrl = social['link'];
+          break;
+        case 'VK':
+          vkUrl = social['link'];
+          break;
+        case 'Twitter':
+          twitterUrl = social['link'];
+          break;
+        case 'GitHub':
+          githubUrl = social['link'];
+          break;
+      }
   }
 
   Map<String, dynamic> toJson() {
@@ -67,7 +88,7 @@ class Team {
     data['speciality'] = this.speciality;
     data['fb_url'] = this.fbUrl;
     data['twitter_url'] = this.twitterUrl;
-    data['linkedin_url'] = this.linkedinUrl;
+    data['linkedin_url'] = this.vkUrl;
     data['github_url'] = this.githubUrl;
     data['contribution'] = this.contribution;
     return data;

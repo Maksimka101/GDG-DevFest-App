@@ -1,3 +1,5 @@
+import 'package:flutter_devfest/home/speaker.dart';
+
 class SessionsData {
   List<Session> sessions;
 
@@ -22,18 +24,14 @@ class SessionsData {
 }
 
 class Session {
-  String sessionId;
-  String sessionTitle;
-  String sessionDesc;
+  String sessionId; //
+  String sessionTitle; //
+  String sessionDesc; //
   String sessionImage;
   String sessionStartTime;
-  String sessionTotalTime;
+  String sessionEndTime;
   String sessionLink;
-  String speakerName;
-  String speakerDesc;
-  String speakerImage;
-  String speakerInfo;
-  String speakerId;
+  var speakers = <Speaker>[];
   String track;
 
   Session({
@@ -42,15 +40,17 @@ class Session {
     this.sessionDesc,
     this.sessionImage,
     this.sessionStartTime,
-    this.sessionTotalTime,
+    this.sessionEndTime,
     this.sessionLink,
-    this.speakerName,
-    this.speakerDesc,
-    this.speakerImage,
-    this.speakerInfo,
-    this.speakerId,
     this.track,
   });
+
+  Session.fromFirestoreJson(Map json, String id) {
+    sessionId = id;
+    sessionTitle = json['title'];
+    sessionDesc = json['description'];
+    sessionImage = json['image'];
+  }
 
   Session.fromJson(Map<String, dynamic> json) {
     sessionId = json['session_id'];
@@ -58,13 +58,14 @@ class Session {
     sessionDesc = json['session_desc'];
     sessionImage = json['session_image'];
     sessionStartTime = json['session_start_time'];
-    sessionTotalTime = json['session_total_time'];
+    sessionEndTime = json['session_total_time'];
     sessionLink = json['session_link'];
-    speakerName = json['speaker_name'];
-    speakerDesc = json['speaker_desc'];
-    speakerImage = json['speaker_image'];
-    speakerInfo = json['speaker_info'];
-    speakerId = json['speaker_id'];
+    speakers.add(Speaker());
+    speakers.first.speakerName = json['speaker_name'];
+    speakers.first.speakerDesc = json['speaker_desc'];
+    speakers.first.speakerImage = json['speaker_image'];
+    speakers.first.speakerInfo = json['speaker_info'];
+    speakers.first.speakerId = json['speaker_id'];
     track = json['track'];
   }
 
@@ -75,13 +76,8 @@ class Session {
     data['session_desc'] = this.sessionDesc;
     data['session_image'] = this.sessionImage;
     data['session_start_time'] = this.sessionStartTime;
-    data['session_total_time'] = this.sessionTotalTime;
+    data['session_total_time'] = this.sessionEndTime;
     data['session_link'] = this.sessionLink;
-    data['speaker_name'] = this.speakerName;
-    data['speaker_desc'] = this.speakerDesc;
-    data['speaker_image'] = this.speakerImage;
-    data['speaker_info'] = this.speakerInfo;
-    data['speaker_id'] = this.speakerId;
     data['track'] = this.track;
     return data;
   }
@@ -97,12 +93,12 @@ final desc = "The async/await feature allows you to write the asynchronous code 
     " The content of this video was not produced or created by Google.";
 
 //* Tracks can be mobile, web and cloud (Make it web by default or if the track type is not clear.)
-
+/*
 List<Session> sessions = [
   Session(
     sessionId: "1",
     sessionStartTime: "9:00 AM",
-    sessionTotalTime: "30 Mins",
+    sessionEndTime: "30 Mins",
     sessionTitle: "DevByte: From Zero to ML on Google Cloud Platform",
     sessionDesc: desc,
     speakerImage:
@@ -114,7 +110,7 @@ List<Session> sessions = [
   Session(
     sessionId: "2",
     sessionStartTime: "9:30 AM",
-    sessionTotalTime: "30 Mins",
+    sessionEndTime: "30 Mins",
     sessionTitle: "How I Became a Mobile Developer with Firebase and Flutter",
     sessionDesc: desc,
     speakerImage:
@@ -126,7 +122,7 @@ List<Session> sessions = [
   Session(
     sessionId: "3",
     sessionStartTime: "10:30 AM",
-    sessionTotalTime: "30 Mins",
+    sessionEndTime: "30 Mins",
     sessionTitle: "Angular Elements",
     sessionDesc: desc,
     speakerImage:
@@ -138,7 +134,7 @@ List<Session> sessions = [
   Session(
     sessionId: "4",
     sessionStartTime: "11:00 AM",
-    sessionTotalTime: "45 Mins",
+    sessionEndTime: "45 Mins",
     sessionTitle: "Machine Learning and AutoML on GCP",
     sessionDesc: desc,
     speakerImage:
@@ -150,7 +146,7 @@ List<Session> sessions = [
   Session(
     sessionId: "5",
     sessionStartTime: "1:00 PM",
-    sessionTotalTime: "45 Mins",
+    sessionEndTime: "45 Mins",
     sessionTitle: "Top 5 from Firebase Summit '18",
     sessionDesc: desc,
     speakerImage:
@@ -162,7 +158,7 @@ List<Session> sessions = [
   Session(
     sessionId: "6",
     sessionStartTime: "2:00 PM",
-    sessionTotalTime: "45 Mins",
+    sessionEndTime: "45 Mins",
     sessionTitle: "Multiplayer Games with WebXR",
     sessionDesc: desc,
     speakerImage:
@@ -174,7 +170,7 @@ List<Session> sessions = [
   Session(
     sessionId: "7",
     sessionStartTime: "3:00 PM",
-    sessionTotalTime: "45 Mins",
+    sessionEndTime: "45 Mins",
     sessionTitle: "Mobile Database Persistence",
     sessionDesc: desc,
     speakerImage:
@@ -186,7 +182,7 @@ List<Session> sessions = [
   Session(
     sessionId: "8",
     sessionStartTime: "4:00 PM",
-    sessionTotalTime: "45 Mins",
+    sessionEndTime: "45 Mins",
     sessionTitle: "Progressive Experience Web Development",
     sessionDesc: desc,
     speakerImage:
@@ -198,7 +194,7 @@ List<Session> sessions = [
   Session(
     sessionId: "9",
     sessionStartTime: "5:00 PM",
-    sessionTotalTime: "45 Mins",
+    sessionEndTime: "45 Mins",
     sessionTitle: "Kotlin Coroutines",
     sessionDesc: desc,
     speakerImage:
@@ -208,3 +204,4 @@ List<Session> sessions = [
     track: "mobile",
   ),
 ];
+ */

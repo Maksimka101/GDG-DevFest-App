@@ -61,13 +61,13 @@ class Speaker {
     sessionId = json['session_id'];
   }
 
-  Speaker.fromFirestoreJson(Map<String, dynamic> json, String id) {
+  Speaker.fromFirestoreJson(Map<dynamic, dynamic> json, String id) {
     speakerName = json['name'];
     speakerDesc = json['title'];
-    speakerSession = json['photoUrl'];
+    speakerImage = json['photoUrl'];
     speakerInfo = json['shortBio'];
     speakerId = id;
-    for (Map<String, String> social in json['socials'])
+    for (Map<dynamic, dynamic> social in json['socials'])
       switch (social['name']) {
         case 'Facebook':
           fbUrl = social['link'];

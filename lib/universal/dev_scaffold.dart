@@ -8,9 +8,10 @@ class DevScaffold extends StatelessWidget {
   final String title;
   final Widget body;
   final Widget tabBar;
+  final Widget fab;
 
   const DevScaffold(
-      {Key key, @required this.body, @required this.title, this.tabBar})
+      {Key key, @required this.body, this.fab, @required this.title, this.tabBar})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,7 @@ class DevScaffold extends StatelessWidget {
             ],
           ),
           body: body,
+          floatingActionButton: fab,
         ),
       ),
     );

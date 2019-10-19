@@ -14,6 +14,10 @@ import 'package:url_launcher/url_launcher.dart';
 class SpeakerPage extends StatelessWidget {
   static const String routeName = "/speakers";
 
+  void _launch(String url) {
+    launch("http://$url");
+  }
+
   Widget socialActions(context, Speaker speaker) => FittedBox(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,7 +29,7 @@ class SpeakerPage extends StatelessWidget {
                   size: 15,
                 ),
                 onPressed: () {
-                  launch(speaker.fbUrl);
+                  _launch(speaker.fbUrl);
                 },
               ),
             if (speaker.twitterUrl != null)
@@ -35,7 +39,7 @@ class SpeakerPage extends StatelessWidget {
                   size: 15,
                 ),
                 onPressed: () {
-                  launch(speaker.twitterUrl);
+                  _launch(speaker.twitterUrl);
                 },
               ),
             if (speaker.linkedinUrl != null)
@@ -45,7 +49,7 @@ class SpeakerPage extends StatelessWidget {
                   size: 15,
                 ),
                 onPressed: () {
-                  launch(speaker.linkedinUrl);
+                  _launch(speaker.linkedinUrl);
                 },
               ),
             if (speaker.githubUrl != null)
@@ -55,7 +59,7 @@ class SpeakerPage extends StatelessWidget {
                   size: 15,
                 ),
                 onPressed: () {
-                  launch(speaker.githubUrl);
+                  _launch(speaker.githubUrl);
                 },
               ),
           ],
@@ -127,10 +131,16 @@ class SpeakerPage extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            speakers[i].speakerSession,
+                            speakers[i].speakerInfo,
+                            maxLines: 2,
                             style: Theme.of(context).textTheme.caption,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          socialActions(context, speakers[i]),
+                          if (speakers[i].fbUrl != null ||
+                              speakers[i].githubUrl != null ||
+                              speakers[i].linkedinUrl != null ||
+                              speakers[i].twitterUrl != null)
+                            socialActions(context, speakers[i]),
                         ],
                       ),
                     )
