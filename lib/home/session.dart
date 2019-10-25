@@ -43,7 +43,18 @@ class Session {
     this.sessionEndTime,
     this.sessionLink,
     this.track,
+    this.speakers,
   });
+
+  Session copy() =>
+      Session(sessionDesc: sessionDesc,
+          sessionEndTime: sessionEndTime,
+          sessionId: sessionId,
+          sessionImage: sessionImage,
+          sessionLink: sessionLink,
+          sessionStartTime: sessionStartTime,
+          sessionTitle: sessionTitle,
+          track: track, speakers: speakers);
 
   Session.fromFirestoreJson(Map json, String id) {
     sessionId = id;

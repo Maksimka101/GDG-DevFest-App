@@ -1,84 +1,68 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_devfest/agenda/session_screen.dart';
-import 'package:flutter_devfest/home/index.dart';
-import 'package:flutter_devfest/universal/dev_scaffold.dart';
-import 'package:flutter_devfest/utils/tools.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_devfest/agenda/day_bloc.dart';
+import 'package:flutter_devfest/agenda/day_event.dart';
+import 'package:flutter_devfest/agenda/first_day_page.dart';
+import 'package:flutter_devfest/agenda/seckond_day_page.dart';
+import 'package:flutter_devfest/config/config_bloc.dart';
 
 class AgendaPage extends StatelessWidget {
   static const String routeName = "/agenda";
 
   @override
   Widget build(BuildContext context) {
-    var _homeBloc = HomeBloc();
-    return DefaultTabController(
-      length: 4,
-      child: DevScaffold(
-        title: "Agenda",
-        tabBar: TabBar(
-          indicatorSize: TabBarIndicatorSize.label,
-          indicatorColor: Tools.multiColors[Random().nextInt(4)],
-          labelStyle: TextStyle(
-            fontSize: 12,
+    final dayBloc = DayBloc();
+    return StreamBuilder<DayEvent>(
+      stream: dayBloc.uiEvents,
+      builder: (_, daySnap) {
+        if (!daySnap.hasData || daySnap.data.runtimeType == FirstDayEvent)
+          return FromNowhereAnimation(child: FirstDayPage());
+        else
+          return FromNowhereAnimation(child: SecondDayPage());
+      },
+    );
+  }
+}
+
+class FromNowhereAnimation extends StatefulWidget {
+  FromNowhereAnimation({this.child});
+
+  final Widget child;
+
+  @override
+  _FromNowhereAnimationState createState() => _FromNowhereAnimationState();
+}
+
+class _FromNowhereAnimationState extends State<FromNowhereAnimation>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _animation;
+
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    _animation = Tween<double>(begin: 1, end: 0).animate(_controller);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _controller.reset();
+    _controller.forward();
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Container(
+          color: ConfigBloc().darkModeOn ? Colors.black : Colors.white,
+          child: Transform.translate(
+//            scale: _animation.value,
+            offset:
+                Offset(MediaQuery.of(context).size.width * _animation.value, 0),
+            child: child,
           ),
-          isScrollable: false,
-          tabs: <Widget>[
-            Tab(
-              child: Text("Room 1"),
-              icon: Icon(
-                FontAwesomeIcons.mobile,
-                size: 12,
-              ),
-            ),
-            Tab(
-              child: Text("Room 2"),
-              icon: Icon(
-                FontAwesomeIcons.chrome,
-                size: 12,
-              ),
-            ),
-            Tab(
-              child: Text("Room 3"),
-              icon: Icon(
-                FontAwesomeIcons.map,
-                size: 12,
-              ),
-            ),
-            Tab(
-              child: Text("Confirence room", textAlign: TextAlign.center,),
-              icon: Icon(
-                FontAwesomeIcons.cloud,
-                size: 12,
-              ),
-            ),
-          ],
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            SessionScreen(
-              sessionName: 'Room 1',
-              homeBloc: _homeBloc,
-            ),
-            SessionScreen(
-              sessionName: 'Room 2',
-              homeBloc: _homeBloc,
-            ),
-            SessionScreen(
-              sessionName: 'Room 3',
-              homeBloc: _homeBloc,
-            ),
-            SessionScreen(
-              sessionName: 'Conference Room',
-              homeBloc: _homeBloc,
-            ),
-          ],
-        ),
-//        fab: FloatingActionButton.extended(
-//          label: Text(''),
-//        ),
-      ),
+        );
+      },
+      child: widget.child,
     );
   }
 }

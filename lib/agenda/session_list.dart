@@ -16,7 +16,6 @@ class SessionList extends StatelessWidget {
       shrinkWrap: false,
       itemCount: allSessions.length,
       itemBuilder: (c, i) {
-        // return Text("sdd");
         return Card(
           elevation: 0.0,
           child: InkWell(

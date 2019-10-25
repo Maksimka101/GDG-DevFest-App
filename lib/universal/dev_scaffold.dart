@@ -25,7 +25,7 @@ class DevScaffold extends StatelessWidget {
           appBar: AppBar(
             title: Text(title),
             centerTitle: true,
-            bottom: tabBar != null ? tabBar : null,
+            bottom: tabBar,
             actions: <Widget>[
               IconButton(
                 icon: Icon(

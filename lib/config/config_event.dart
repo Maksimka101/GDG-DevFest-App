@@ -36,7 +36,7 @@ class LoadConfigEvent extends ConfigEvent {
   Future<ConfigState> applyAsync(
       {ConfigState currentState, ConfigBloc bloc}) async {
     try {
-      await Future.delayed(new Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 2));
 
       return new InConfigState();
     } catch (_, stackTrace) {

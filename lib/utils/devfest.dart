@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Devfest {
@@ -10,6 +11,18 @@ class Devfest {
   static Color secondaryAppColor = Colors.black;
   static const String google_sans_family = "GoogleSans";
   static bool isDebugMode = false;
+  static final firstDayLocation = LatLng(56.322075, 44.009966);
+  static final secondDayLocation = LatLng(56.268274, 44.025440);
+  static final firstDayLocationName = 'Location 15 Nov';
+  static final firstDayLocationDesc =
+      'Sberbank office is a new modernized place, '
+      'combining a business center, conference '
+      'facilities and exhibition opportunities';
+  static final secondDayLocationName = 'Location 16 Nov';
+  static final secondDayLocationDesc =
+      'IT-Park Ankudinovka is a new modernized venue, '
+      'combining a business center, a technopark in the sphere '
+      'of high technologies, conference facilities and exhibition opportunities';
 
   // * Url related
   static String baseUrl = "https://storage.googleapis.com/gdg-devfest";
