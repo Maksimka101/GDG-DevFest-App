@@ -4,22 +4,49 @@ import 'package:flutter_devfest/agenda/day_event.dart';
 import 'package:flutter_devfest/agenda/first_day_page.dart';
 import 'package:flutter_devfest/agenda/seckond_day_page.dart';
 import 'package:flutter_devfest/config/config_bloc.dart';
+import 'package:flutter_devfest/universal/dev_scaffold.dart';
 
-class AgendaPage extends StatelessWidget {
+class AgendaPage extends StatefulWidget {
   static const String routeName = "/agenda";
 
   @override
+  _AgendaPageState createState() => _AgendaPageState();
+}
+
+class _AgendaPageState extends State<AgendaPage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+  final _dayBloc = DayBloc();
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 2, vsync: this);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final dayBloc = DayBloc();
     return StreamBuilder<DayEvent>(
-      stream: dayBloc.uiEvents,
-      builder: (_, daySnap) {
-        if (!daySnap.hasData || daySnap.data.runtimeType == FirstDayEvent)
-          return FromNowhereAnimation(child: FirstDayPage());
-        else
-          return FromNowhereAnimation(child: SecondDayPage());
-      },
-    );
+        stream: _dayBloc.uiEvents,
+        builder: (context, snapshot) {
+          final isFirstDay =
+              !snapshot.hasData || snapshot.data is FirstDayEvent;
+          if (isFirstDay)
+            _tabController.animateTo(0);
+          else
+            _tabController.animateTo(1);
+          return DevScaffold(
+            title: isFirstDay ? "First day" : "Second day",
+            body: TabBarView(
+              controller: _tabController,
+              children: <Widget>[FirstDayPage(), SecondDayPage()],
+            ),
+            fab: FloatingActionButton.extended(
+              label: Text(isFirstDay ? "Show 2 day" : "Show 1 day"),
+              onPressed: () => _dayBloc.events.add(ChangeDayEvent()),
+            ),
+          );
+        });
   }
 }
 
