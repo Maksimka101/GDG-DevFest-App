@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_devfest/agenda/day_bloc.dart';
-import 'package:flutter_devfest/agenda/day_event.dart';
 import 'package:flutter_devfest/agenda/first_day_page.dart';
 import 'package:flutter_devfest/agenda/seckond_day_page.dart';
 import 'package:flutter_devfest/config/config_bloc.dart';
@@ -15,38 +13,31 @@ class AgendaPage extends StatefulWidget {
 
 class _AgendaPageState extends State<AgendaPage>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
-  final _dayBloc = DayBloc();
-
-  @override
-  void initState() {
-    _tabController = TabController(length: 2, vsync: this);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<DayEvent>(
-        stream: _dayBloc.uiEvents,
-        builder: (context, snapshot) {
-          final isFirstDay =
-              !snapshot.hasData || snapshot.data is FirstDayEvent;
-          if (isFirstDay)
-            _tabController.animateTo(0);
-          else
-            _tabController.animateTo(1);
-          return DevScaffold(
-            title: isFirstDay ? "First day" : "Second day",
-            body: TabBarView(
-              controller: _tabController,
-              children: <Widget>[FirstDayPage(), SecondDayPage()],
+    return DefaultTabController(
+      length: 2,
+      child: DevScaffold(
+        title: "Agenda",
+        body: TabBarView(
+          children: <Widget>[FirstDayPage(), SecondDayPage()],
+        ),
+        // fab: FloatingActionButton.extended(
+        //   label: Text(isFirstDay ? "Show 2 day" : "Show 1 day"),
+        //   onPressed: () => _dayBloc.events.add(ChangeDayEvent()),
+        // ),
+        bottomNavigationBar: TabBar(
+          tabs: <Widget>[
+            Tab(
+              text: 'First day',
             ),
-            fab: FloatingActionButton.extended(
-              label: Text(isFirstDay ? "Show 2 day" : "Show 1 day"),
-              onPressed: () => _dayBloc.events.add(ChangeDayEvent()),
-            ),
-          );
-        });
+            Tab(
+              text: 'Second day',
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 

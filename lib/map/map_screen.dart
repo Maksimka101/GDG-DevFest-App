@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_devfest/agenda/day_bloc.dart';
-import 'package:flutter_devfest/agenda/day_event.dart';
 import 'package:flutter_devfest/map/map_page.dart';
 import 'package:flutter_devfest/universal/dev_scaffold.dart';
 
@@ -9,22 +7,29 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = DayBloc();
-    return DevScaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 1.0),
-        child: StreamBuilder<DayEvent>(
-          stream: bloc.uiEvents,
-          builder: (c, daySnap) {
-            return MapPage(
-                isFirstDay: daySnap.data.runtimeType == FirstDayEvent);
-          },
-        ),
-      ),
-      title: "Locate Us",
-      fab: FloatingActionButton.extended(
-          onPressed: () => bloc.events.add(ChangeDayEvent()),
-          label: Text('Change day')),
-    );
+    return DefaultTabController(
+        length: 2,
+        child: DevScaffold(
+          body: Padding(
+            padding: const EdgeInsets.only(top: 1.0),
+            child: TabBarView(
+              children: <Widget>[
+                MapPage(isFirstDay: true),
+                MapPage(isFirstDay: false)
+              ],
+            ),
+          ),
+          title: "Locate Us",
+          bottomNavigationBar: TabBar(
+            tabs: <Widget>[
+              Tab(
+                text: 'First day',
+              ),
+              Tab(
+                text: 'Second day',
+              )
+            ],
+          ),
+        ));
   }
 }

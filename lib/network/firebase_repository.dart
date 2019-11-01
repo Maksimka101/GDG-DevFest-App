@@ -59,7 +59,13 @@ class FirebaseRepository {
           session.track = tracks[i]['title'];
           session.sessionStartTime = timeSlot['startTime'];
           session.sessionEndTime = timeSlot['endTime'];
-          sessions.add(session);
+          if (session.sessionImage != null) {
+            for (final track in tracks) {
+              sessions.add(session.copy()..track = track['title']);
+            }
+          } else {
+            sessions.add(session);
+          }
         }
       }
     }
