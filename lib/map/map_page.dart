@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_devfest/config/config_bloc.dart';
@@ -86,6 +88,10 @@ class _MapPageState extends State<MapPage> {
       children: <Widget>[
         GoogleMap(
           mapType: MapType.normal,
+          gestureRecognizers: {
+            Factory<OneSequenceGestureRecognizer>(
+                () => EagerGestureRecognizer())
+          },
           zoomGesturesEnabled: true,
           myLocationButtonEnabled: true,
           myLocationEnabled: true,

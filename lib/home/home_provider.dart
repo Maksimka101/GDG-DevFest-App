@@ -1,5 +1,6 @@
 import 'package:flutter_devfest/home/session.dart';
 import 'package:flutter_devfest/home/speaker.dart';
+import 'package:flutter_devfest/home/sponsor.dart';
 import 'package:flutter_devfest/home/team.dart';
 import 'package:flutter_devfest/network/firebase_repository.dart';
 import 'package:flutter_devfest/network/i_client.dart';
@@ -12,6 +13,8 @@ abstract class IHomeProvider {
   Future<SessionsData> getSessions();
 
   Future<TeamsData> getTeams();
+
+  Future<SponsorData> getSponsors();
 }
 
 /// Firebase home provider
@@ -31,6 +34,11 @@ class FHomeProvider implements IHomeProvider {
   @override
   Future<TeamsData> getTeams() async {
     return await _firebaseRepository.teams;
+  }
+
+  @override
+  Future<SponsorData> getSponsors() async {
+    return await _firebaseRepository.sponsors;
   }
 
 }
@@ -86,5 +94,11 @@ class HomeProvider implements IHomeProvider {
     }
 
     throw Exception(result.networkServiceResponse.message);
+  }
+
+  @override
+  Future<SponsorData> getSponsors() {
+    
+    return null;
   }
 }

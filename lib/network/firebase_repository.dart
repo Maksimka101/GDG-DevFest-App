@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_devfest/home/session.dart';
 import 'package:flutter_devfest/home/speaker.dart';
+import 'package:flutter_devfest/home/sponsor.dart';
 import 'package:flutter_devfest/home/team.dart';
 
 class FirebaseRepository {
@@ -89,5 +90,18 @@ class FirebaseRepository {
     var speakers = _speakers.values.toList();
     _speakers.clear();
     return SpeakersData(speakers: speakers);
+  }
+
+  Future<SponsorData> get sponsors async {
+    final typedSponsors = <TypedSponsors>[];
+    final sponsorsDoc = await _firestore.collection('partners').getDocuments();
+    for (final sponsors in sponsorsDoc.documents) {
+      final typedSponsor = TypedSponsors(title: sponsors['title']); 
+      for (final sponsor in sponsors['items']) {
+        typedSponsor.typedSponsors.add(Sponsor.fromFirestore(sponsor));
+      }
+      typedSponsors.add(typedSponsor);
+    }
+  return SponsorData(typedSponsors);
   }
 }
