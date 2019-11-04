@@ -96,12 +96,17 @@ class FirebaseRepository {
     final typedSponsors = <TypedSponsors>[];
     final sponsorsDoc = await _firestore.collection('partners').getDocuments();
     for (final sponsors in sponsorsDoc.documents) {
-      final typedSponsor = TypedSponsors(title: sponsors['title']); 
-      for (final sponsor in sponsors['items']) {
-        typedSponsor.typedSponsors.add(Sponsor.fromFirestore(sponsor));
+      final typedSponsor = TypedSponsors(title: sponsors['title']);
+      final sponsorItems = await _firestore
+          .collection('partners')
+          .document(sponsors.documentID)
+          .collection('items')
+          .getDocuments();
+      for (final sponsor in sponsorItems.documents) {
+        typedSponsor.typedSponsors.add(Sponsor.fromFirestore(sponsor.data));
       }
       typedSponsors.add(typedSponsor);
     }
-  return SponsorData(typedSponsors);
+    return SponsorData(typedSponsors);
   }
 }

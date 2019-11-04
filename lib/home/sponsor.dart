@@ -6,7 +6,7 @@ class SponsorData {
 
 class TypedSponsors {
   String title;
-  List<Sponsor> typedSponsors;
+  List<Sponsor> typedSponsors = [];
   TypedSponsors({this.title});
 }
 
