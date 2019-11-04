@@ -15,7 +15,7 @@ class MapPage extends StatefulWidget {
   _MapPageState createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
   GoogleMapController _controller;
   bool isMapCreated = false;
   LatLng _festLocation;
@@ -44,10 +44,10 @@ class _MapPageState extends State<MapPage> {
       target: _festLocation,
       zoom: 14.4746,
     );
-    Future.delayed(Duration()).then((_) {
-      if (isMapCreated)
-        _controller.animateCamera(CameraUpdate.newLatLng(_festLocation));
-    });
+//    Future.delayed(Duration()).then((_) {
+//      if (isMapCreated)
+//        _controller.animateCamera(CameraUpdate.newLatLng(_festLocation));
+//    });
   }
 
   Set<Marker> _createMarker() {
@@ -79,8 +79,9 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    _updateMap();
+    super.build(context);
     if (isMapCreated) {
+//      _updateMap();
       changeMapMode();
     }
     return Stack(
@@ -101,7 +102,7 @@ class _MapPageState extends State<MapPage> {
             _controller = controller;
             isMapCreated = true;
             changeMapMode();
-            setState(() {});
+//            setState(() {});
           },
         ),
         IgnorePointer(
@@ -125,4 +126,7 @@ class _MapPageState extends State<MapPage> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

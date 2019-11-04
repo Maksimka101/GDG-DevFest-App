@@ -16,6 +16,7 @@ class _AgendaPageState extends State<AgendaPage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: DateTime.now().day == 16 ? 1 : 0,
       length: 2,
       child: DevScaffold(
         title: "Agenda",

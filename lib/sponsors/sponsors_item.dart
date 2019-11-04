@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_devfest/home/sponsor.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SponsorItem extends StatelessWidget {
@@ -28,17 +29,19 @@ class SponsorItem extends StatelessWidget {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                        ),
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         padding: EdgeInsets.all(10),
                         margin: const EdgeInsets.symmetric(horizontal: 35),
-                        child: CachedNetworkImage(
-                          fit: BoxFit.scaleDown,
-                          imageUrl: sponsor.logo,
-                          placeholder: (c, _) =>
-                              SizedBox(height: 60, child: Text(sponsor.name)),
-                        ),
+                        child: sponsor.logo.contains('svg')
+                            ? SvgPicture.network(sponsor.logo, fit: BoxFit.scaleDown,)
+                            : CachedNetworkImage(
+                                fit: BoxFit.scaleDown,
+                                imageUrl: sponsor.logo,
+                                placeholder: (c, _) => SizedBox(
+                                    height: 60, child: Text(sponsor.name)),
+                              ),
                       ),
                     ),
                     SizedBox(
