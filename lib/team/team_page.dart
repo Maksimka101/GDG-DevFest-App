@@ -16,7 +16,7 @@ class TeamPage extends StatelessWidget {
   void _launch(String url) {
     launch(url);
   }
-  
+
   Widget socialActions(Team team) => FittedBox(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,13 +126,6 @@ class TeamPage extends StatelessWidget {
                             teams[i].job,
                             style: Theme.of(context).textTheme.subtitle,
                           ),
-//                          SizedBox(
-//                            height: 10,
-//                          ),
-//                          Text(
-//                            teams[i].contribution,
-//                            style: Theme.of(context).textTheme.caption,
-//                          ),
                           if (teams[i].fbUrl != null ||
                               teams[i].githubUrl != null ||
                               teams[i].vkUrl != null ||

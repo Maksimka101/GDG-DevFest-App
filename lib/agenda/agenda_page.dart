@@ -1,84 +1,86 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_devfest/agenda/session_screen.dart';
-import 'package:flutter_devfest/home/index.dart';
+import 'package:flutter_devfest/agenda/first_day_page.dart';
+import 'package:flutter_devfest/agenda/seckond_day_page.dart';
+import 'package:flutter_devfest/config/config_bloc.dart';
 import 'package:flutter_devfest/universal/dev_scaffold.dart';
-import 'package:flutter_devfest/utils/tools.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class AgendaPage extends StatelessWidget {
+class AgendaPage extends StatefulWidget {
   static const String routeName = "/agenda";
 
   @override
+  _AgendaPageState createState() => _AgendaPageState();
+}
+
+class _AgendaPageState extends State<AgendaPage>
+    with SingleTickerProviderStateMixin {
+  @override
   Widget build(BuildContext context) {
-    var _homeBloc = HomeBloc();
     return DefaultTabController(
-      length: 4,
+      length: 2,
       child: DevScaffold(
         title: "Agenda",
-        tabBar: TabBar(
-          indicatorSize: TabBarIndicatorSize.label,
-          indicatorColor: Tools.multiColors[Random().nextInt(4)],
-          labelStyle: TextStyle(
-            fontSize: 12,
-          ),
-          isScrollable: false,
+        body: TabBarView(
+          children: <Widget>[FirstDayPage(), SecondDayPage()],
+        ),
+        // fab: FloatingActionButton.extended(
+        //   label: Text(isFirstDay ? "Show 2 day" : "Show 1 day"),
+        //   onPressed: () => _dayBloc.events.add(ChangeDayEvent()),
+        // ),
+        bottomNavigationBar: TabBar(
           tabs: <Widget>[
             Tab(
-              child: Text("Room 1"),
-              icon: Icon(
-                FontAwesomeIcons.mobile,
-                size: 12,
-              ),
+              text: 'First day',
             ),
             Tab(
-              child: Text("Room 2"),
-              icon: Icon(
-                FontAwesomeIcons.chrome,
-                size: 12,
-              ),
-            ),
-            Tab(
-              child: Text("Room 3"),
-              icon: Icon(
-                FontAwesomeIcons.map,
-                size: 12,
-              ),
-            ),
-            Tab(
-              child: Text("Confirence room", textAlign: TextAlign.center,),
-              icon: Icon(
-                FontAwesomeIcons.cloud,
-                size: 12,
-              ),
-            ),
+              text: 'Second day',
+            )
           ],
         ),
-        body: TabBarView(
-          children: <Widget>[
-            SessionScreen(
-              sessionName: 'Room 1',
-              homeBloc: _homeBloc,
-            ),
-            SessionScreen(
-              sessionName: 'Room 2',
-              homeBloc: _homeBloc,
-            ),
-            SessionScreen(
-              sessionName: 'Room 3',
-              homeBloc: _homeBloc,
-            ),
-            SessionScreen(
-              sessionName: 'Conference Room',
-              homeBloc: _homeBloc,
-            ),
-          ],
-        ),
-//        fab: FloatingActionButton.extended(
-//          label: Text(''),
-//        ),
       ),
+    );
+  }
+}
+
+class FromNowhereAnimation extends StatefulWidget {
+  FromNowhereAnimation({this.child});
+
+  final Widget child;
+
+  @override
+  _FromNowhereAnimationState createState() => _FromNowhereAnimationState();
+}
+
+class _FromNowhereAnimationState extends State<FromNowhereAnimation>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _animation;
+
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    _animation = Tween<double>(begin: 1, end: 0).animate(_controller);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _controller.reset();
+    _controller.forward();
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Container(
+          color: ConfigBloc().darkModeOn ? Colors.black : Colors.white,
+          child: Transform.translate(
+//            scale: _animation.value,
+            offset:
+                Offset(MediaQuery.of(context).size.width * _animation.value, 0),
+            child: child,
+          ),
+        );
+      },
+      child: widget.child,
     );
   }
 }

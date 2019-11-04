@@ -9,9 +9,10 @@ class DevScaffold extends StatelessWidget {
   final Widget body;
   final Widget tabBar;
   final Widget fab;
+  final Widget bottomNavigationBar;
 
   const DevScaffold(
-      {Key key, @required this.body, this.fab, @required this.title, this.tabBar})
+      {Key key, @required this.body, this.fab, @required this.title, this.tabBar, this.bottomNavigationBar})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class DevScaffold extends StatelessWidget {
           appBar: AppBar(
             title: Text(title),
             centerTitle: true,
-            bottom: tabBar != null ? tabBar : null,
+            bottom: tabBar,
             actions: <Widget>[
               IconButton(
                 icon: Icon(
@@ -49,6 +50,7 @@ class DevScaffold extends StatelessWidget {
               ),
             ],
           ),
+          bottomNavigationBar: bottomNavigationBar,
           body: body,
           floatingActionButton: fab,
         ),

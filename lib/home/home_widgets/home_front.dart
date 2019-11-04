@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_devfest/agenda/agenda_page.dart';
 import 'package:flutter_devfest/config/index.dart';
-import 'package:flutter_devfest/faq/faq_page.dart';
-import 'package:flutter_devfest/map/map_page.dart';
+import 'package:flutter_devfest/map/map_screen.dart';
 import 'package:flutter_devfest/speakers/speaker_page.dart';
 import 'package:flutter_devfest/sponsors/sponsor_page.dart';
 import 'package:flutter_devfest/team/team_page.dart';
@@ -68,17 +67,17 @@ class HomeFront extends StatelessWidget {
             onPressed: () =>
                 Navigator.pushNamed(context, SponsorPage.routeName),
           ),
-          ActionCard(
-            icon: Icons.question_answer,
-            color: Colors.brown,
-            title: Devfest.faq_text,
-            onPressed: () => Navigator.pushNamed(context, FaqPage.routeName),
-          ),
+          // ActionCard(
+          //   icon: Icons.question_answer,
+          //   color: Colors.brown,
+          //   title: Devfest.faq_text,
+          //   onPressed: () => Navigator.pushNamed(context, FaqPage.routeName),
+          // ),
           ActionCard(
             icon: Icons.map,
             color: Colors.blue,
             title: Devfest.map_text,
-            onPressed: () => Navigator.pushNamed(context, MapPage.routeName),
+            onPressed: () => Navigator.pushNamed(context, MapScreen.routeName),
           )
         ],
       );
@@ -90,38 +89,38 @@ class HomeFront extends StatelessWidget {
             IconButton(
               icon: Icon(FontAwesomeIcons.facebookF),
               onPressed: () async {
-                await _launchURL("https://facebook.com/imthepk");
+                await _launchURL("https://www.facebook.com/gdgnizhny/");
               },
             ),
             IconButton(
               icon: Icon(FontAwesomeIcons.twitter),
               onPressed: () async {
-                await _launchURL("https://twitter.com/imthepk");
+                await _launchURL("https://twitter.com/gdgnizhny/");
               },
             ),
             IconButton(
-              icon: Icon(FontAwesomeIcons.linkedinIn),
+              icon: Icon(FontAwesomeIcons.instagram),
               onPressed: () async {
-                _launchURL("https://linkedin.com/in/imthepk");
+                _launchURL("https://www.instagram.com/gdgnizhny/");
               },
             ),
             IconButton(
               icon: Icon(FontAwesomeIcons.youtube),
               onPressed: () async {
-                await _launchURL("https://youtube.com/mtechviral");
+                await _launchURL("https://www.youtube.com/channel/UC9ZDzE6h-K84Eg7-K1y1TCA");
               },
             ),
             IconButton(
               icon: Icon(FontAwesomeIcons.meetup),
               onPressed: () async {
-                await _launchURL("https://meetup.com/");
+                await _launchURL("https://www.meetup.com/Google-Developer-Group-Nizhny-Novgorod/");
               },
             ),
             IconButton(
               icon: Icon(FontAwesomeIcons.envelope),
               onPressed: () async {
                 var emailUrl =
-                    '''mailto:mtechviral@gmail.com?subject=Support Needed For DevFest App&body={Name: Pawan Kumar},Email: pawan221b@gmail.com}''';
+                    '''mailto:gdgnizny@gmail.com''';
                 var out = Uri.encodeFull(emailUrl);
                 await _launchURL(out);
               },

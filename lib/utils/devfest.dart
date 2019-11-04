@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Devfest {
@@ -10,6 +11,14 @@ class Devfest {
   static Color secondaryAppColor = Colors.black;
   static const String google_sans_family = "GoogleSans";
   static bool isDebugMode = false;
+  static final firstDayLocation = LatLng(56.322075, 44.009966);
+  static final secondDayLocation = LatLng(56.268274, 44.025440);
+  static final firstDayLocationName = 'Location 15 Nov';
+  static final firstDayLocationDesc =
+      'Sberbank office, Oktyabrskaya St. 35, Nizhny Novgorod, Russia';
+  static final secondDayLocationName = 'Location 16 Nov';
+  static final secondDayLocationDesc =
+      'IT-Park Ankudinovka, Akademika Saharova St. 4, Nizhny Novgorod, Russia';
 
   // * Url related
   static String baseUrl = "https://storage.googleapis.com/gdg-devfest";
@@ -37,9 +46,9 @@ class Devfest {
   static const String banner_dark = "assets/images/banner_dark.png";
 
   //*  Texts
-  static const String welcomeText = "Welcome to GDG DevFest";
+  static const String welcomeText = "Welcome to DevFest Gorky";
   static const String descText =
-      '''DevFests are community-led, developer events hosted by GDG chapters around the globe focused on community building & learning about Google’s technologies. Each DevFest is inspired by and uniquely tailored to the needs of the developer community and region that hosts it.''';
+      "What is DevFest? Google Developer Group DevFests are the largest Google related events in the world! Each DevFest is carefully crafted for you by your local GDG community to bring in awesome speakers from all over the world, great topics, and lots fun!";
 
   static const String loading_text = "Loading...";
   static const String try_again_text = "Try Again";
