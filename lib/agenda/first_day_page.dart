@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_devfest/agenda/session_screen.dart';
 import 'package:flutter_devfest/home/home_bloc.dart';
 import 'package:flutter_devfest/utils/tools.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FirstDayPage extends StatelessWidget {
   final HomeBloc homeBloc = HomeBloc();
@@ -28,31 +27,15 @@ class FirstDayPage extends StatelessWidget {
                   "Conference room",
                   textAlign: TextAlign.center,
                 ),
-                icon: Icon(
-                  FontAwesomeIcons.cloud,
-                  size: 12,
-                ),
               ),
               Tab(
                 child: Text("Room 1"),
-                icon: Icon(
-                  FontAwesomeIcons.mobile,
-                  size: 12,
-                ),
               ),
               Tab(
                 child: Text("Room 2"),
-                icon: Icon(
-                  FontAwesomeIcons.chrome,
-                  size: 12,
-                ),
               ),
               Tab(
                 child: Text("Room 3"),
-                icon: Icon(
-                  FontAwesomeIcons.map,
-                  size: 12,
-                ),
               ),
             ],
           ),

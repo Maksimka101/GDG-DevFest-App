@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_devfest/agenda/session_screen.dart';
 import 'package:flutter_devfest/home/home_bloc.dart';
 import 'package:flutter_devfest/utils/tools.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SecondDayPage extends StatelessWidget {
   final HomeBloc homeBloc = HomeBloc();
@@ -25,17 +24,9 @@ class SecondDayPage extends StatelessWidget {
             tabs: <Widget>[
               Tab(
                 child: Text("Oka"),
-                icon: Icon(
-                  FontAwesomeIcons.mobile,
-                  size: 12,
-                ),
               ),
               Tab(
                 child: Text("Volga"),
-                icon: Icon(
-                  FontAwesomeIcons.chrome,
-                  size: 12,
-                ),
               ),
             ],
           ),
